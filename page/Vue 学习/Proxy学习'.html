@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Proxy</title>
+</head>
+<body>
+
+</body>
+</html>
+<script>
+  let target = {
+    x: 1,
+    y: 2
+  }
+  let handle = {
+    get: () => 10
+  }
+  target = new Proxy(target, handle)
+  console.log(target)
+  console.log(target.x)
+
+  const arr = [1,2,3,4]
+  const getArr = (els)=> {
+    return Reflect.get(arr, els)
+  }
+  console.log(getArr(-1))
+</script>

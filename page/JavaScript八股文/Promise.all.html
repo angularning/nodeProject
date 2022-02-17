@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Promise.all的实现</title>
+</head>
+<body>
+
+</body>
+</html>
+<script>
+    const p1 = new Promise((resolve, reject)=> {
+        resolve(1)
+    })
+    console.log('p1', p1)
+    const p2 = Promise.resolve(2)
+    console.log('p2', p2);
+    const p3 = new Promise(resolve=> {
+        setTimeout(() => {
+            resolve(3)
+        }, 3000);
+    })
+    const p4 = new Promise((_, reject)=> {
+        reject('err4')
+    })
+    // console.log('p2', p2);
+    // Promise.all([p1,p2,p3,p4]).then(item=> {
+    //     console.log(item);
+    // }).catch(err=> {
+    //     console.log(err);
+    // })
+    Promise.myAllSettled = function (list){
+        if(list.length === 0 ) return []
+        let count = 0, result =  [];
+        return new Promise((resolve,reject)=> {
+            list.forEach((p, i)=> {
+                Promise.resolve(p).then(res=> {
+                    count += 1
+                    result[i] = {
+                        status: 'fulfilled',
+                        value: res
+                    }
+                    if(count === list.length){
+                        resolve(result)
+                    }
+                }).catch(err=> {
+                    count += 1
+                    result[i] = {
+                        status: 'rejected',
+                        value: err
+                    }
+                    if(count === list.length){
+                        resolve(result)
+                    }
+                })
+            })
+        })
+    }
+    // Promise.myAllSettled([p1,p2,p3,p4]).then(item=> {
+    //     console.log(item)
+    // })
+    Promise.myAll = function(list){
+        if(list.length === 0 ) return []
+        let result = [], count = 0;
+        return new Promise((resolve, reject)=> {
+            list.forEach((element, i) => {
+                Promise.resolve(element).then(res=> {
+                    count += 1
+                    result[i] = res
+                    if(list.length === result.length){
+                        resolve(result)
+                    }
+                }).catch(reject)
+            });
+        })
+    }
+    // Promise.myAll([p1,p2,p3, p4]).then(item=> {
+    //     console.log(item);
+    // }).catch(err=> {
+    //     console.log(err);
+    // })
+    Promise.myRace = function (list) {
+        if(list.length === 0) return []
+        return new Promise((resolve, reject)=> {
+            list.forEach(p=> {
+                Promise.resolve(p).then(resolve).catch(reject)
+            })
+        })
+    }
+    // Promise.myRace([p4, p1, p2, p3]).then(item=> {
+    //     console.log('item', item)
+    // }).catch(err=> {
+    //     console.log('err', err)
+    // })
+</script>

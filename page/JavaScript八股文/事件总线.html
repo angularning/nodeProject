@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>事件触发监听取消</title>
+</head>
+<body>
+    
+</body>
+</html>
+<script type="module">
+    import { EventEmiter } from "./Event.js"
+    const eventBus = new EventEmiter()
+    function f1(name, age){
+        console.log(`f1的${name}的年龄${age}`)
+    }
+    function f2(name, age){
+        console.log(`f2的${name}的年龄${age}`)
+    }
+    eventBus.on('getData', f1)
+    eventBus.on('getData', f2)
+    eventBus.emit('getData', false, '小王', 18)
+</script>

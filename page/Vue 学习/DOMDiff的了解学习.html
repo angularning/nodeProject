@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>DOMDiff的了解学习.html</title>
+</head>
+<body>
+
+</body>
+</html>
+<script>
+  var oldDom = {
+    tag: 'div',
+    text: '内容1',
+    atts: {
+      class: 'color',
+      id: 'div'
+    },
+    children: [
+      {
+        tag: 'span',
+        text: '我是span',
+        atts: {
+          class: '',
+          id: ''
+        },
+      }
+    ]
+  }
+  var newDom = {
+    tag: 'div',
+    text: '内容2',
+    atts: {
+      class: 'color',
+      id: 'div'
+    },
+    children: [
+      {
+        tag: 'span',
+        text: '我是新span',
+        atts: {
+          class: '',
+          id: ''
+        },
+      }
+    ]
+  }
+</script>

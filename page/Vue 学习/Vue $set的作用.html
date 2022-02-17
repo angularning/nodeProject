@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>$set</title>
+</head>
+<body>
+<div id="app">
+  <button @click="toChangeStatus">点击更改</button>
+  <ul>
+    <li v-for="(item, i) in list" :key="i">
+      {{item.name}}<br>
+      {{item.age}}
+    </li>
+  </ul>
+  <div>
+    {{objData.isShow}}
+  </div>
+</div>
+</body>
+</html>
+<script src="./vue.js"></script>
+<script>
+  var app = new Vue({
+    el: '#app',
+    data(){
+      return {
+        msg: 'Hello Vue!',
+        list: [
+          {
+            name: '小张',
+            age: 18
+          },
+          {
+            name: '小王',
+            age: 19
+          },
+        ],
+        objData: {
+          isShow: true
+        }
+      }
+    },
+    created(){
+
+    },
+    methods: {
+      toChangeStatus(){
+        this.list[0] = {
+          name: 1,
+          age: 2
+        }
+        console.log(this.list)
+        this.$set(this.list, 0, {name: 1,age: 3})
+        // this.objData.isShow = !this.objData.isShow
+        // this.$set(this.objData, 'isShow', !this.objData.isShow)
+      }
+    }
+  })
+</script>

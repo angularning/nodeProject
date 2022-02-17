@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<pre>
+    1.首先要理解这个api的用处。
+    2.要在了解到使用场景，如果没有地方用到，那么这个API就没有作用。
+
+    ******
+    call，apply都是为了改变函数的this指向，扩大了函数的作用域范围。
+    举个例子
+
+</pre>
+<pre>
+     Function.prototype._call = function (context = window) {
+        let fn =  Symbol()
+        const arg = [...arguments].slice(1)
+        context[fn] = this
+        const result = context[fn](...arg)
+        delete context[fn]
+        return result
+    }
+    Function.prototype._apply = function (context = window, arg) {
+        if(!Array.isArray(arg)) throw new Error('参数必须是array')
+        let fn =  Symbol()
+        context[fn] = this
+        const result = context[fn](arg)
+        delete context[fn]
+        return result
+    }
+    Function.prototype._bind = function (context = window){
+        const fn = function (){}
+        const arg = [...arguments].slice(1)
+        let _this = this
+        let result = function (){
+            let arg1 = [...arguments]
+            return _this.apply(this instanceof fn ? this : context, arg.concat(arg1))
+        }
+        fn.prototype = this.prototype
+        result.prototype = new fn()
+        return result
+    }
+
+   // const other = {
+   //     name: 'Cat'
+   // }
+   const Animal = {
+       name: 'Dog',
+       getName: function () {
+           // this的作用域
+           console.log([...arguments])
+           console.log(this.name)
+       }
+   }
+
+</pre>
+</body>
+</html>
+<script>
+    // let x = 2
+    // console.log(x**3)
+    Function.prototype._call = function (context = window) {
+        let fn =  Symbol()
+        const arg = [...arguments].slice(1)
+        context[fn] = this
+        const result = context[fn](...arg)
+        delete context[fn]
+        return result
+    }
+    Function.prototype._apply = function (context = window, arg) {
+        if(!Array.isArray(arg)) throw new Error('参数必须是array')
+        let fn =  Symbol()
+        context[fn] = this
+        const result = context[fn](arg)
+        delete context[fn]
+        return result
+    }
+    Function.prototype._bind = function (context = window){
+        const fn = function (){}
+        const arg = [...arguments].slice(1)
+        let _this = this
+        let result = function (){
+            let arg1 = [...arguments]
+            return _this.apply(this instanceof fn ? this : context, arg.concat(arg1))
+        }
+        fn.prototype = this.prototype
+        result.prototype = new fn()
+        return result
+    }
+
+   // const other = {
+   //     name: 'Cat'
+   // }
+   const Animal = {
+       name: 'Dog',
+       getName: function () {
+           // this的作用域
+           console.log([...arguments])
+           console.log(this.name)
+       }
+   }
+
+    for(var i = 1; i <= 5; i++) {
+        !function(i) {
+            setTimeout(function() {
+                console.log(i);
+            }, i * 1000);
+        }(i);
+    }
+
+    // console.log(Animal.getName.bind().constructor == Animal.getName.constructor)
+
+   // Animal.getName._apply(other, [1,2,3,4])
+   // // Animal
+   //
+   // let arr = [1,2]
+   // console.log(arr.toString())
+   // console.log(Object.prototype.toString.bind(arr))
+
+    let arr1 = [1,2,3,4,1]
+    console.log(Math.max.apply(window,arr1))
+</script>

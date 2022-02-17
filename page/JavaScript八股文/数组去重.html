@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>数组去重的多种实现方式</title>
+</head>
+<body>
+
+</body>
+</html>
+<script>
+    const arr = [1,2,1,'1',{name: 1}, {age: 1}, {name: 1}, Symbol(1), Symbol(1),[1],[2],[1], function (){}, function (){}]
+    /**
+     * 使用ES6的new Set，只能对基本数据类型去重
+     * 如果非要去除引用数据类型加一些处理逻辑
+     *
+     * */
+    const _isObj = data => typeof data === 'object'
+    const _js = data => {
+        let val
+        try{
+            val = JSON.stringify(data)
+        }catch (e){
+            val = data
+        }
+        return val
+    }
+    const _jp = data => {
+        let val
+        try {
+           val = JSON.parse(data)
+        }catch (e){}
+        return val
+    }
+    const uniqueArr_1 = arr => {
+        const temp = arr.map(el=> _isObj(el) ? _js(el) : el)
+        return [...new Set(temp)].map(el=> _isObj(_jp(el)) ? _jp(el) : el)
+    }
+    // console.log(uniqueArr_1(arr))
+    /**
+     * 利用选择排序对思想，循环对比
+     * */
+    const uniqueArr_2 = arr => {
+        let result = []
+        const temp = arr.map(el=> _isObj(el) ? _js(el) : el)
+        for(let i = 0;i<temp.length;i++){
+            for(let j = i+1;j<temp.length;j++){
+                if(!result.includes(temp[j])){
+                    result.push(temp[j])
+                }
+            }
+        }
+        return result.map(el=> _isObj(_jp(el)) ? _jp(el) : el)
+    }
+    // console.log(uniqueArr_2(arr))
+    /**
+     * 利用对象对key唯一
+     * 不能处理有Symbol，BigInt
+     * */
+    const uniqueArr_3 = arr => {
+        let obj = new Map()
+        let result = []
+        for(let i = 0;i<arr.length;i++){
+            obj.set(_js(arr[i]), i)
+        }
+        const temp = Array.from(obj.keys())
+        for(let i in temp){
+            let el = temp[i]
+            if(_isObj(_jp(el))){
+                result.push(_jp(el))
+            } else{
+                result.push(el)
+            }
+        }
+        return result
+    }
+    // console.log(uniqueArr_1(arr))
+    /**
+     * 数组去重按照对象的某个key
+     * */
+    const arrObject = [
+        {id: 0, name: "小明"},
+        {id: 1, name: "小张"},
+        {id: 2, name: "小李"},
+        {id: 3, name: "小孙"},
+        {id: 1, name: "小周"},
+        {id: 2, name: "小明"},
+    ]
+    const uniqueArrKey = (arr, key) => {
+       return arr.reduce((total,current) => {
+
+        }, [])
+    }
+    console.log(uniqueArrKey(arrObject, 'id'))
+</script>

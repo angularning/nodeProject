@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>函数的理解</title>
+</head>
+<body>
+<!--<li>1</li>-->
+<!--<li>2</li>-->
+<!--<li>3</li>-->
+</body>
+</html>
+<script>
+  // 函数最多有255个参数。
+  // let num = 1, arr = []
+  // while (num < 999){
+  //   arr.push(num)
+  //   num++
+  // }
+  // testParams(...arr)
+  // function testParams(a,undefined,undefined,undefined,undefined,undefined,undefined,undefined,undefined,undefined,undefined,undefined,undefined,undefined,g){
+  //   console.log(a)
+  //   console.log(g)
+  // }
+  // console.log(testParams.length)
+/*  var newPerson = function (a) {
+      console.log(this)
+      console.log(a)
+  }
+  // var men = new newPerson(1)
+  function myNew(fn,...arg){
+      // let obj = Object.create(fn.prototype)
+      let obj = {}
+      fn.prototype = obj.constructor.prototype
+      fn.apply(obj, arg)
+      return obj
+  }
+  var men = myNew(newPerson, 333)*/
+  // const arr = [1,2,3]
+  // arr.map(item=> {
+  //     console.log(item)
+  //     if(item === 2){
+  //         return false
+  //     }
+  // })
+  // arr.some(item=> {
+  //     console.log(item)
+  //     return item === 2
+  // })
+  // for(let i in arr){
+  //     console.log(arr[i])
+  //     if(arr[i] === 2){
+  //         break
+  //     }
+  // }
+  // for(let value of arr){
+  //       console.log(value)
+  //       if(value === 2){
+  //         break
+  //     }
+  // }
+  // let objList = {
+  //     name: 1,
+  //     age: 2
+  // }
+  // const li = document.getElementsByTagName('li')
+  // console.log(li)
+  // for(let value of objList){
+  //     console.log(value)
+  // }
+  Function.prototype.myCall = function (fn, ...arg) {
+      if(fn === null || fn === undefined) return fn(...arg)
+      let p = Symbol()
+      fn[p] = this
+      let result = fn[p](...arg)
+      delete fn[p]
+      return result
+  }
+  Function.prototype.myApply = function (fn, ...arg) {
+      if(fn === null || fn === undefined) return fn(arg)
+      let p = Symbol()
+      fn[p] = this
+      let result = fn[p](arg)
+      delete fn[p]
+      return result
+  }
+  const arr1 = [1,2,3,4,5]
+  const arr2 = [6,7]
+  console.log(Math.max(...arr1))
+  arr2.push.apply(arr1, arr2)
+  console.log(arr1)
+  // myCall()
+  var name = 'xxx'
+  const personObj = {
+      name: '小张',
+      fn1: function() {
+          console.log(this.name)
+      },
+      fn2: function() {
+          setTimeout(function () {
+              this.fn1()
+          }.myCall(this), 10)
+      },
+      getName: function() {
+          console.log(this.name)
+          return this.name
+      }
+  }
+  personObj.fn2()
+
+</script>

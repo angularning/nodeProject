@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Vue学习数据变化监听.html</title>
+  <a id="clickBtn">点击修改price</a>
+</head>
+<body>
+
+</body>
+</html>
+<script src="Observer.js"></script>
+<script>
+ let car = new Observer({
+   price: 100,
+   brand: 'abc'
+ })
+ const clickBtn = document.getElementById('clickBtn')
+ clickBtn.addEventListener('click', ()=>{
+   car.value.price += 1
+   console.log(car.value.price)
+ })
+ /*
+  let car = {}
+  let val = 1000
+ Object.defineProperty(car,'price',{
+    enumerable: true,
+    configurable: true,
+    get() {
+      console.log('car is read')
+      return val
+    },
+    set(v) {
+      console.log('car price is change')
+      val = v
+    }
+  })*/
+</script>

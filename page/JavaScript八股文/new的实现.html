@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>new一个对象</title>
+</head>
+<body>
+<pre>
+    在new一个对象的时候都干了什么事情。
+    --创建一个空对象
+    --把空对象的__proto__绑定到构造函数的prototype
+    --绑定this
+    --返回结果：判断返回是在对象的原型上否
+    const _new = (fn, ...arg) => {
+        let obj = {}
+        obj.__proto__ = fn.prototype
+        let result = fn.apply(this, arg)
+        return result instanceof Object ? result : obj
+    }
+</pre>
+</body>
+</html>
+<script>
+    const _new = (fn, ...arg) => {
+        let obj = {}
+        obj.__proto__ = fn.prototype
+        let result = fn.apply(this, arg)
+        return result instanceof Object ? result : obj
+    }
+</script>

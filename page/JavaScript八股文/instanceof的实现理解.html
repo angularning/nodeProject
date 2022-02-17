@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>instanceof的理解</title>
+</head>
+<body>
+<pre>
+   const _instanceof = (value, type) => {
+        let left = value.__proto__
+        let right = type.prototype
+        while (true){
+            if(left === null)
+                return false
+            if(left === right)
+                return true
+           left = left.__proto__
+        }
+    }
+</pre>
+</body>
+</html>
+<script>
+    const _instanceof = (value, type) => {
+        let left = value.__proto__
+        let right = type.prototype
+        while (true){
+            if(left === null)
+                return false
+            if(left === right)
+                return true
+           left = left.__proto__
+        }
+    }
+</script>

@@ -1,0 +1,87 @@
+<template>
+  <div>
+    <el-button @click="getJuejin" type="primary">获取掘金文章</el-button>
+    <el-button @click="getJuejinList">获取list</el-button>
+    <ul>
+      <li>
+        <span>单个文章：</span>
+        <input type="text" v-model="url" />
+      </li>
+      <li>
+        <span>文章列表：</span>
+        <input type="text" v-model="url1" />
+      </li>
+    </ul>
+    <div class="article" v-html="article"></div>
+  </div>
+</template>
+
+<script>
+export default {
+  name: "GetJueJin",
+  props: {
+    msg: String,
+  },
+  data() {
+    return {
+      article: null,
+      url: "https://juejin.cn/post/6967634683811069982",
+      url1: "https://juejin.cn/frontend",
+      articleList: []
+    };
+  },
+  created() {
+    this.getList();
+  },
+  methods: {
+    getList() {
+      this.$axios.get("http://localhost:3000/index").then((item) => {
+        console.log(item);
+      });
+    },
+    getJuejin() {
+      this.$axios
+        .get("http://localhost:3000/getJuejin?url=" + this.url)
+        .then((item) => {
+          console.log(item);
+          if (item.status === 200) {
+            this.article = item.data;
+          }
+        });
+    },
+    getJuejinList() {
+      this.$axios
+        .get("http://localhost:3000/getFrontendList?url=" + this.url1)
+        .then((item) => {
+          console.log(item);
+          if (item.status === 200) {
+            const { data } = item.data;
+            this.articleList = data;
+          }
+        });
+    },
+  },
+};
+</script>
+
+<!-- Add "scoped" attribute to limit CSS to this component only -->
+<style scoped lang="scss">
+h3 {
+  margin: 40px 0 0;
+}
+
+ul {
+  list-style-type: none !important;
+  padding: 0;
+}
+
+li {
+  list-style: none !important;
+  display: inline-block;
+  margin: 0 10px;
+}
+
+a {
+  color: #42b983;
+}
+</style>

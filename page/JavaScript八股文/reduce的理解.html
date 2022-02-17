@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>reduce的一些平时使用</title>
+</head>
+<body>
+<pre>
+    <script>
+    /**
+     * reduce很强大
+     *
+     * */
+    const arr = [1, 2, 3, 4]
+    // const r = arr.reduce((total, current, index, array)=> {
+    //     return Math.min(total, current)
+    // }, Infinity)
+    // const r = arr.reduce((total, current, index, array)=> {
+    //     return total * current
+    // }, 1)
+    // console.log(r)
+    /**
+     * 验证括号是否合法，返回的值如果是0正好，如果是正数左边多几个，如果是负数右边的多几个
+     * */
+    /*
+    const str = '(())()((()((()'
+    const r = [...str].reduce((total, current)=> current==='(' ? total+1: total-1, 0)
+    */
+
+    /**
+     * 把数组中对象按照某个key转化
+     * @param arr 传入的数组
+     * @param key 按照某个属性
+     * */
+    /*
+        const testArr1 = [
+         {
+             name: '小1',
+             country: 'China',
+             color: 'red',
+             age: 18
+         },
+         {
+             name: '小2',
+             country: 'American',
+             color: 'red',
+             age: 18
+         },
+         {
+             name: '小3',
+             country: 'Japan',
+             color: 'yellow',
+             age: 20
+         }
+     ]
+       const translateArr = (arr, key) => {
+         return arr.reduce((total, current)=> {
+             let newKey = current[key]
+             if(!total[newKey]){
+                 total[newKey] = []
+             }
+             total[newKey].push(current)
+             return total
+         }, [])
+     }
+        console.log(translateArr(testArr1, 'age'))
+     */
+    /**
+     * 扁平化数组
+     * @param arr 要处理的数组
+     * @param n 需要展开多少层
+     * */
+    /*
+    const testFlatArr = [1, [1], [1,[1]]]
+    const _flat = (arr, n) => {
+        return n > 0 ? arr.reduce((t, c)=> {
+            return t.concat(Array.isArray(c) ? _flat(c, n-1): c)
+        }, []) : arr.slice()
+    }
+    console.log(_flat(testFlatArr, 1))
+    // console.log(Object.prototype.toString.call(testArr1).slice(8,-1))
+    */
+    /**
+     * 数组去重的reduce版本
+     * */
+    /*const uniqueArr = arr => {
+       return  arr.reduce((total, current) => {
+            if (!total.includes(current)){
+                total.push(current)
+            }
+            return total
+        }, [])
+    }*/
+    /*
+    const uniqueArr = arr => {
+       return arr.reduce((total, current) => {
+           total.set(current, current)
+            return total
+        }, new Map())
+    }
+    console.log(Array.from(uniqueArr([1,2,1,'1']).keys()))
+    */
+    /**
+     * 模拟实现一个reduce
+     *
+     * */
+    Array.prototype._reduce = function (){
+
+    }
+    console.log(arr._reduce())
+</script>
+</pre>
+</body>
+</html>
+<script>
+    /**
+     * reduce很强大
+     *
+     * */
+    const arr = [1, 2, 3, 4]
+    // const r = arr.reduce((total, current, index, array)=> {
+    //     return Math.min(total, current)
+    // }, Infinity)
+    // const r = arr.reduce((total, current, index, array)=> {
+    //     return total * current
+    // }, 1)
+    // console.log(r)
+    /**
+     * 验证括号是否合法，返回的值如果是0正好，如果是正数左边多几个，如果是负数右边的多几个
+     * */
+    /*
+    const str = '(())()((()((()'
+    const r = [...str].reduce((total, current)=> current==='(' ? total+1: total-1, 0)
+    */
+
+    /**
+     * 把数组中对象按照某个key转化
+     * @param arr 传入的数组
+     * @param key 按照某个属性
+     * */
+   /*
+       const testArr1 = [
+        {
+            name: '小1',
+            country: 'China',
+            color: 'red',
+            age: 18
+        },
+        {
+            name: '小2',
+            country: 'American',
+            color: 'red',
+            age: 18
+        },
+        {
+            name: '小3',
+            country: 'Japan',
+            color: 'yellow',
+            age: 20
+        }
+    ]
+      const translateArr = (arr, key) => {
+        return arr.reduce((total, current)=> {
+            let newKey = current[key]
+            if(!total[newKey]){
+                total[newKey] = []
+            }
+            total[newKey].push(current)
+            return total
+        }, [])
+    }
+       console.log(translateArr(testArr1, 'age'))
+    */
+    /**
+     * 扁平化数组
+     * @param arr 要处理的数组
+     * @param n 需要展开多少层
+     * */
+    /*
+    const testFlatArr = [1, [1], [1,[1]]]
+    const _flat = (arr, n) => {
+        return n > 0 ? arr.reduce((t, c)=> {
+            return t.concat(Array.isArray(c) ? _flat(c, n-1): c)
+        }, []) : arr.slice()
+    }
+    console.log(_flat(testFlatArr, 1))
+    // console.log(Object.prototype.toString.call(testArr1).slice(8,-1))
+    */
+    /**
+     * 数组去重的reduce版本
+     * */
+    /*const uniqueArr = arr => {
+       return  arr.reduce((total, current) => {
+            if (!total.includes(current)){
+                total.push(current)
+            }
+            return total
+        }, [])
+    }*/
+    /*
+    const uniqueArr = arr => {
+       return arr.reduce((total, current) => {
+           total.set(current, current)
+            return total
+        }, new Map())
+    }
+    console.log(Array.from(uniqueArr([1,2,1,'1']).keys()))
+    */
+    /**
+     * 模拟实现一个reduce
+     *
+     * */
+    Array.prototype._reduce = function (){
+
+    }
+    console.log(arr._reduce())
+</script>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>图片懒加载</title>
+  <style>
+    li{
+      height: 400px;
+    }
+  </style>
+</head>
+<body>
+<div>
+  <ul>
+    <li><img data-src="./img.png" alt=""></li>
+    <li><img data-src="./img.png" alt=""></li>
+    <li><img data-src="./img.png" alt=""></li>
+    <li><img data-src="./img.png" alt=""></li>
+    <li><img data-src="./img.png" alt=""></li>
+    <li><img data-src="./img.png" alt=""></li>
+    <li><img data-src="./img.png" alt=""></li>
+    <li><img data-src="./img.png" alt=""></li>
+    <li><img data-src="./img.png" alt=""></li>
+    <li><img data-src="./img.png" alt=""></li>
+  </ul>
+</div>
+</body>
+</html>
+<script>
+  let imgList = [...document.getElementsByTagName('img')]
+  console.log(imgList)
+  function imgLazyLoad() {
+    imgList.forEach((img, index) => {
+      const tempRect = img.getBoundingClientRect();
+      if(tempRect.top < window.innerHeight){
+        img.src = img.dataset.src
+      }
+    })
+  }
+  function throttle(fn, delay){
+    let timer = null, time = 0;
+    return (...arg)=> {
+      let st = Date.now();
+      if(st - time > delay){
+        clearTimeout(timer)
+        timer = setTimeout(()=> {
+          fn.apply(this, arg)
+          time = st
+        }, delay)
+      } else {
+        fn.apply(this, arg)
+        time = st
+      }
+    }
+  }
+  window.addEventListener('scroll', imgLazyLoad)
+
+</script>

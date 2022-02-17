@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>递归练习</title>
+</head>
+<body>
+<pre>
+  写一个函数，接受一串字符串，返回一个字符串，这个字符串是将原来字符串倒过来。
+  写一个函数，接受一串字符串，同时从前后开始拿一位字符对比，如果两个相等，返回 true，如果不等，返回 false。
+  编写一个函数，接受一个数组，返回扁平化新数组。
+  编写一个函数，接受一个对象，这个对象值是偶数，则让它们相加，返回这个总值。
+  编写一个函数，接受一个对象，返回一个数组，这个数组包括对象里所有的值是字符串
+</pre>
+</body>
+</html>
+<script>
+  const str = '12345'
+  console.log(str.slice(1))
+  function reverseStr(str){
+    if(str.length === 1 ) return str
+    return reverseStr(str.slice(1)) + str[0]
+  }
+  console.log(reverseStr(str))
+  // 12345 1
+  // 2345 2
+  // 345  3
+  // 45   4
+  //  5   5
+
+</script>
