@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>使用Promise实现每隔1秒输出1,2,3.html</title>
+</head>
+<body>
+
+</body>
+</html>
+<script>
+  const arr = [1,2,3];
+  arr.reduce((prev, next) => {
+    return prev.then(() => {
+      return new Promise((resolve, reject) => {
+        setTimeout(() => {
+          console.log(next);
+          resolve();
+        }, 1000);
+      });
+    });
+  }, Promise.resolve());
+</script>

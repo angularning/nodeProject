@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>节流</title>
+</head>
+<body>
+<button id="btn">发送请求</button>
+</body>
+</html>
+<script>
+  const ajaxFn = () => {
+    console.log(`发送请求${Date.now()}`)
+  }
+  const arr = [1,'2', 2]
+  console.log(~1.23)
+  const throttle = (fn, time, immediate) => {
+      let timer = null, start = 0;
+      return (...arg) => {
+          let now = new Date()
+          if(immediate){
+              if(now - start > time){
+                  fn.apply(this, arg)
+                  start = now
+              }
+          } else {
+              if(!timer){
+                  timer = setTimeout(()=> {
+                      timer = null
+                      fn.apply(this, arg)
+                  }, time)
+              }
+          }
+
+      }
+  }
+  document.getElementById('btn').addEventListener('click', throttle(ajaxFn, 2000, false))
+
+</script>

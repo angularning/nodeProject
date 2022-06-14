@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            margin: 0
+        }
+    </style>
+</head>
+<body>
+<canvas id="webgl"></canvas>
+</body>
+<script>
+    //将canvas的大小设置为屏幕大小
+    var canvas = document.getElementById('webgl')
+    canvas.height = window.innerHeight
+    canvas.width = window.innerWidth
+
+    //获取webgl绘图上下文
+    var gl = canvas.getContext('webgl')
+
+    //将背景色设置为黑色
+    gl.clearColor(0.0, 0.0, 0.0, 1.0)
+    gl.clear(gl.COLOR_BUFFER_BIT)
+
+    //顶点着色器代码（字符串形式）
+    var VSHADER_SOURCE =
+        `void main () {
+      gl_Position = vec4(0.5, 0.5, 0.0, 1.0);  //点的位置：x: 0.5, y: 0.5, z: 0。齐次坐标
+      gl_PointSize = 10.0;                     //点的尺寸，非必须，默认是0
+    }`
+
+    //片元着色器代码（字符串形式）
+    var FSHADER_SOURCE =
+        `void main () {
+      gl_FragColor = vec4(1.0, 0.0, 0.0, 1.0);    //点的颜色：四个量分别代表 rgba
+    }`
+
+    //初始化着色器
+    initShaders(gl, VSHADER_SOURCE, FSHADER_SOURCE)
+
+    //绘制一个点,第一个参数为gl.POINTS
+    gl.drawArrays(gl.POINTS, 0, 1)
+
+    function initShaders(gl, vshader, fshader) {
+        var program = createProgram(gl, vshader, fshader);
+        if (!program) {
+            console.log('Failed to create program');
+            return false;
+        }
+        gl.useProgram(program);
+        gl.program = program;
+        return true;
+    }
+
+    function createProgram(gl, vshader, fshader) {
+        var vertexShader = loadShader(gl, gl.VERTEX_SHADER, vshader);
+        var fragmentShader = loadShader(gl, gl.FRAGMENT_SHADER, fshader);
+        if (!vertexShader || !fragmentShader) {
+            return null;
+        }
+        var program = gl.createProgram();
+        if (!program) {
+            return null;
+        }
+        gl.attachShader(program, vertexShader);
+        gl.attachShader(program, fragmentShader);
+        gl.linkProgram(program);
+        var linked = gl.getProgramParameter(program, gl.LINK_STATUS);
+        if (!linked) {
+            var error = gl.getProgramInfoLog(program);
+            console.log('Failed to link program: ' + error);
+            gl.deleteProgram(program);
+            gl.deleteShader(fragmentShader);
+            gl.deleteShader(vertexShader);
+            return null;
+        }
+        return program;
+    }
+
+    function loadShader(gl, type, source) {
+        // 创建着色器对象
+        var shader = gl.createShader(type);
+        if (shader == null) {
+            console.log('unable to create shader');
+            return null;
+        }
+        gl.shaderSource(shader, source);
+        gl.compileShader(shader);
+        var compiled = gl.getShaderParameter(shader, gl.COMPILE_STATUS);
+        if (!compiled) {
+            var error = gl.getShaderInfoLog(shader);
+            gl.deleteShader(shader);
+            return null;
+        }
+        return shader;
+    }
+</script>
+</html>

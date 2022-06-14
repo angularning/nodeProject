@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>leetcode栈</title>
+</head>
+<body>
+    
+</body>
+<script>
+function isValid(str) {
+    // 1. 利用栈的特征存储当前匹配的字符串
+    // 2. 判断下一个字符串是否与栈中的元素满足题目条件，满足则出栈
+    // 3. 返回栈的长度，如果为0则证明刚好一一配对成功。
+    let stack = []
+    for(let i = 0;i<str.length;i++){
+        let st = str[i]
+        if(st === '(' || st === '{' || st === '['){
+        } else {
+            let end = stack.at(-1)
+            console.log(end)
+            if(st===')' && end ==='(' || 
+               st==='}' && end ==='{' ||
+               st===']' && end ==='['
+            ){
+                stack.pop()
+            }
+        }
+    }
+    return stack.length === 0
+}
+// console.log(isValid('(()'))
+
+function removeDuplicates(s){
+    let stack = []
+    for(let v of s){
+        let prev = stack.pop()
+        if(prev !== v){
+            stack.push(prev)
+            stack.push(v)
+        }
+    }
+    return stack.join('')
+}
+// console.log(removeDuplicates('abbaca'))
+
+var longestValidParentheses = function(s) {
+    let stack = []
+    stack.push(-1)
+    let res = 0
+    for(let i in s){
+        console.log(stack)
+        let st = s[i]
+        if(st==='('){
+            stack.push(i)
+        } else {
+            stack.pop()
+            if(stack.length === 0){
+            stack.push(i)
+            } else {
+                res = Math.max(res, i - stack.at(-1))
+            }
+        }
+    }
+    return res
+};
+// console.log(longestValidParentheses('(()))'))
+
+var simplifyPath = function(path) {
+    let stack = []
+    let str = '/'
+    let arr = path.split('/')
+    arr.forEach(value => {
+        if(value && value==='..'){
+            stack.pop()
+        } else if(value && value !=='.'){
+            stack.push(value)
+        }
+    })
+    arr.length ? str = str + stack.join('/') : str
+    return str
+};
+
+console.log(simplifyPath('/.././../home'))
+</script>
+</html>

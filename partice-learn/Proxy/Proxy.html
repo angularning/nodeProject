@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Proxy</title>
+</head>
+<body>
+
+</body>
+</html>
+<script>
+  // 代理模式
+  /**
+   * target: 目标对象，可以是一个对象，也可以是一个函数，也可以是一个类，也可以是一个数组
+   * handler: 一个回调函数，做为代理对象的处理函数
+   * **/
+  // const proxy = new Proxy(target, handler)
+  // 处理数组，监听数组的变化
+ /* const arr = [1, 2, 3]
+  const proxy = new Proxy(arr, {
+    get(target, key, receiver) {
+      return Reflect.get(target, key)
+    },
+    set(target, key, value, receiver) {
+      return Reflect.set(target, key, value)
+    }
+  })
+  proxy[0] = 100
+  console.log(arr)
+*/
+  // Object.defineProperty 对象属性的监听
+  function defineReactive(obj, key, value){
+       Object.defineProperty(obj, key, {
+          enumerable: true,
+          configurable: true,
+          get() {
+              console.log('get', value)
+              return value
+          },
+          set(v) {
+              console.log('set', v)
+              value = v
+          }
+      })
+  }
+  function observe(data) {
+      Object.keys(data).forEach(function(key) {
+          defineReactive(data, key, data[key]);
+      })
+  }
+  const arr = [1,2,3]
+  observe(arr)
+  arr[6] = 4
+
+  // proxy的优缺点
+  // 优点：
+  // 1.监听的类型丰富，可以监听对象本身，数组的变化
+  // 2.监听的是proxy的实例
+  // 缺点：
+  // ie不支持
+</script>
+

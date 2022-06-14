@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="div">
+</div>
+</body>
+</html>
+<script>
+  /*const obj = Object.create({})
+  obj.name = 'zhangsan'
+  const map1 = new Map()
+  map1.set(obj,'张三')
+  map1.set(111,'张三')
+  console.log(map1)
+  console.log(map1.get(obj))
+  console.log(map1.has(obj))
+  console.log(map1.size)
+  console.log(map1.delete(111))
+  console.log(map1)
+  */
+  /*const set1 = new Set()
+  console.log(set1)
+  set1.add(1)
+  set1.add('1')
+  console.log(set1)
+  set1.delete(1)
+  console.log(set1)
+  console.log(set1.has(1))
+  console.log(set1.size)
+  console.log(set1)
+  */
+ /* const arr1 = ['a', 'b', 'c', {name: 'zhangsan'}, 'a']
+  let iterator1 = arr1.entries()
+  for (let item of iterator1) {
+    console.log(item)
+  }*/
+ /* const array1 = ['a', 'b', 'c'];
+  const array2 = ['d', 'e', 'f'];
+  const array3 = array1.concat(array2);
+  */
+  /*const arr1 = ['a', 'b', 'c', 'd']
+  const arr2 = arr1.copyWithin(2,1)
+  console.log(arr2)*/
+ /* const arr1 = [1,2,3,4]
+  const result = arr1.every(function (item, index, array) {
+    console.log(item)
+    return typeof item === "number"
+  })
+  console.log(result)
+  */
+  // const arr1 = [1,2,3,4]
+  // arr1.fill(0,1,3)
+  // console.log(arr1)
+  /**
+   * 一个棋盘
+   * **/
+  /*
+
+  const data = [[]]
+  for(let i = 0; i < 10; i++){
+      data[i] = []
+    for(let j = 0; j < 10; j++){
+      data[i][j] = {
+        x: i,
+        y: j,
+        value: Math.floor(Math.random() * 10)
+      }
+    }
+  }
+  console.log(data)
+  const div = document.getElementById('div')
+  for (let i in data) {
+    const div1 = document.createElement('div')
+    for (let j in data[i]) {
+      const button = document.createElement('button')
+      button.innerText = data[i][j].x + ',' + data[i][j].y
+      div1.appendChild(button)
+    }
+    div.appendChild(div1)
+  }
+  const button = document.querySelectorAll('button')
+  for (let i = 0; i < button.length; i++) {
+      button[i].style.cursor = 'pointer'
+      button[i].onclick = function (e) {
+        console.log(e)
+      }
+  }
+
+  const data1 = Array(10).fill(0).map(() => Array(10).fill(0))
+  */
+  const arr1 = [1,2,3,4,5,6,7,8,9,10]
+  // const arr2 = arr1.filter(function (item, index, array) {
+  //   return item % 2 === 0
+  // })
+  const arr2 = arr1.reverse()
+  // const arr2 = Array.from(arr3)
+  console.log(arr1)
+</script>

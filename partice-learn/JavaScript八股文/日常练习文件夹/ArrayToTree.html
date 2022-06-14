@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>arrayToTree</title>
+</head>
+<body>
+<ul>
+    <li>
+        <a>菜单1</a>
+        <ul>
+            <li>
+                <a>菜单1-1</a>
+            </li>
+            <li>
+                <a>菜单1-2</a>
+                <ul>
+                    <li>
+                        <a>菜单1-2-1</a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </li>
+    <li>
+        <a>菜单2</a>
+        <ul>
+            <li>
+                <a>菜单2-1</a>
+            </li>
+            <li>
+                <a>菜单2-2</a>
+                <ul>
+                    <li>
+                        <a>菜单2-2-1</a>
+                        <ul>
+                            <li>
+                                <a>菜单2-2-1-1</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </li>
+</ul>
+</body>
+</html>
+<script>
+    const menu = [
+        {
+            id : 1, parentId : null, sort: 0, name: '菜单1'
+        },
+        {
+            id: 1, parentId: 1, sort: 0, name: '菜单1-1',
+        },
+        {
+            id: 2, parentId: 1, sort: 1, name: '菜单1-2',
+        },
+        {
+            id: 3, parentId: 2, sort: 2, name: '菜单1-2-1',
+        },
+        {
+            id: 4, parentId: null, sort: 0, name: '菜单2',
+        },
+        {
+            id: 5, parentId: 4, sort: 1, name: '菜单2-1',
+        },
+        {
+            id: 6, parentId: 5, sort: 2, name: '菜单2-1-1',
+        },
+        {
+            id: 7, parentId: 6, sort: 3, name: '菜单2-1-1-1',
+        }
+    ]
+    const listToTree = (list, id = null) => {
+        let result = []
+        list.forEach(item => {
+            if(item.parentId === id){
+                item.children = listToTree(list, item.id)
+                result.push(item)
+            }
+        })
+        return result
+    }
+    console.log(listToTree(menu))
+    console.log(menu)
+</script>

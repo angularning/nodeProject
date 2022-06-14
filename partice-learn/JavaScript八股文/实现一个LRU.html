@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>实现一个LRU</title>
+</head>
+<body>
+
+</body>
+</html>
+<script>
+  class LRUCatch1{
+    constructor(maxSize){
+      this.maxSize = maxSize;
+      this.cache = {};
+      this.list = [];
+    }
+    get(key){
+        if(this.cache[key]){
+            this.remove(this.list, key)
+            this.list.push(key)
+            return this.cache[key]
+        } else {
+            return -1
+        }
+    }
+      remove(arr = [], key){
+          const index = arr.indexOf(key)
+          if(index > -1){
+              return arr.splice(arr.indexOf(key), 1)
+          }
+      }
+      put(key, value) {
+          if (this.cache[key]) {
+              this.cache[key] = value
+              this.remove(this.list, key)
+              this.list.push(key)
+          } else {
+              this.list.push(key)
+              this.cache[key] = value
+              if (this.list.length > this.maxSize) {
+                  this.removeCatch(this.cache, this.list, this.list[0])
+              }
+          }
+      }
+      removeCatch(catchList, list, key){
+          catchList[key] = null
+          list.splice(list.indexOf(key), 1)
+      }
+  }
+
+  class LRUCatch2{
+      constructor(capacity){
+          this.capacity = capacity
+          this.maps = new Map()
+      }
+      get(key){
+          if(this.maps.has(key)){
+              const value = this.maps.get(key)
+              this.maps.delete(key)
+              this.maps.set(key, value)
+              return value
+          }
+      }
+      put(key, value){
+          if(this.maps.has(key)){
+              this.maps.delete(key)
+          }
+          if(this.maps.size >= this.capacity){
+              this.maps.delete(this.maps.keys().next().value)
+          }
+          this.maps.set(key, value)
+      }
+  }
+  const lRUCache = new LRUCatch2(2)
+  console.log(lRUCache.put(1, 1)) // 缓存是 {1=1}
+  console.log(lRUCache.put(2, 2)) // 缓存是 {1=1, 2=2}
+  console.log(lRUCache.get(1))    // 返回 1
+  console.log(lRUCache.put(3, 3)) // 该操作会使得关键字 2 作废，缓存是 {1=1, 3=3}
+  console.log(lRUCache.get(2))    // 返回 -1 (未找到)
+  console.log(lRUCache.put(4, 4)) // 该操作会使得关键字 1 作废，缓存是 {4=4, 3=3}
+  console.log(lRUCache.get(1) )   // 返回 -1 (未找到)
+  console.log(lRUCache.get(3))    // 返回 3
+  console.log(lRUCache.get(4) )   // 返回 4
+
+</script>

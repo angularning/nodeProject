@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+</html>
+<script>
+  const _instanceof = (value, type) => {
+    let left = value.__proto__
+    let right = type.prototype
+    while (true){
+      if(left === null){
+        return false
+      }
+      if(left === right){
+        return true
+      }
+      left = left.__proto__
+    }
+  }
+
+  const _new = (fn,...arg) => {
+    if(typeof fn !== 'function') return false
+    let obj = {}
+    obj.__proto__ = fn.prototype
+    let result = fn.apply(this, arg)
+    return result instanceof 'Object' ? result : obj
+  }
+  console.log(_new('ff', 1,2,3,4))
+  const urlParams = new URLSearchParams(window.location.search)
+  console.log(Object.fromEntries(urlParams.entries()))
+</script>

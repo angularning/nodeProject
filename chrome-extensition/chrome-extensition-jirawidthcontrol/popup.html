@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>修改jira窗口的宽度</title>
+    <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+    <div class="wrap">
+        <div class="inputDiv">
+            <p>输入修改的dialog的class名称比如：.jBOQHC</p>
+            <input type="text" id="classInput" value=".jBOQHC">
+        </div>
+        <div class="inputDiv">
+            <p>输入宽度，比如600，单位px</p>
+            <input type="text" id="dialogWidthInput" value="600">
+        </div>
+        <div class="inputButton"><button id="enter">确定</button></div>
+    </div>
+<div class="jBOQHC" style="background: red;height: 200px;display: none;"></div>
+</body>
+<script src="./js/popup.js"></script>
+</html>

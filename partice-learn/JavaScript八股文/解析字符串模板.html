@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>解析字符串模板</title>
+</head>
+<body>
+
+</body>
+</html>
+<script>
+  const template = '小张年龄是{{age}}，喜欢的颜色{{color}},aaa{tall}'
+  const personXiao = {
+    age: 20,
+    color: '红色'
+  }
+  function templateRender(template, data) {
+    const reg = /\{\{(\w+)\}\}/
+      const reg1 = /{{(w+)}}/
+    if(reg.test(template)){
+      const str = template.match(reg)[1]
+      template = template.replace(reg, data[str])
+      return templateRender(template, data)
+    }
+    return template
+  }
+  console.log(templateRender(template, personXiao))
+</script>
