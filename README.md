@@ -1,2 +1,2 @@
 # nodeProject
-练习node项目
+项目的不同入口
