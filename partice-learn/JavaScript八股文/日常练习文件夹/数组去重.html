@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+</html>
+<script>
+  const arr = [1,2,3,'1',2,1]
+  const uniqueArr1 = arr => {
+    return [...new Set(arr)]
+  }
+  const uniqueArr2 = arr => {
+    let result = []
+    for(let v of arr){
+      if(!result.includes(v)){
+        result.push(v)
+      }
+    }
+    return result
+  }
+  const uniqueArr3 = arr => {
+    return arr.reduce((acc, cur) => {
+      if(!acc.includes(cur)){
+        return acc.concat(cur)
+      }else{
+        return acc
+      }
+    },[])
+  }
+  const uniqueArr4 = arr => {
+    let obj = {}
+    return arr.filter(item=> {
+      return obj.hasOwnProperty(typeof item + item)  === true ? false : obj[typeof item + item] = true
+    })
+  }
+
+  console.log(uniqueArr4(arr))
+</script>

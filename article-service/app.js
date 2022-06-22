@@ -11,6 +11,7 @@ var getJueJin = require('./routes/getJuejin');
 var getFrontendList = require('./routes/getFrontendList');
 var getArticle = require('./routes/getArticle');
 var getExcelList = require('./routes/getExcelList');
+var getDouyin = require('./routes/getDouyin');
 
 var app = express();
 
@@ -44,6 +45,7 @@ app.all("*", function (req, res, next) {
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/getJueJin', getJueJin);
+app.use('/getDouyin', getDouyin);
 app.use('/getFrontendList', getFrontendList);
 app.use('/getArticle', getArticle);
 app.use('/getExcelList', getExcelList);

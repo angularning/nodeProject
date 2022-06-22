@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>柯里化</title>
+</head>
+<body>
+
+</body>
+</html>
+<script>
+
+    // console.log(checkTelNumber(mobileReg, '11581239162'))
+    /**
+     * 思路如下：返回的是一个函数，利用闭包保存参数，递归调用。
+     * */
+    const curry = fn => {
+        const next = (...arg) => {
+            if(fn.length === arg.length) return fn(...arg)
+            return (...arg1) => {
+                return next(...arg, ...arg1)
+            }
+        }
+        return next
+    }
+    function add(a, b, c){
+        return a + b + c
+    }
+    const checkTelNumber = (reg , str) => {
+        return reg.test(str)
+    }
+    const mobileReg = /^1\d{10}$/
+    const _check = curry(checkTelNumber)
+    const _checkMobile = _check(mobileReg)
+    console.log(_checkMobile(11581239162))
+    // console.log(add(1,2,3))
+    // const curryAdd = curry(add)
+    // console.log(curryAdd(1)(2)(3))
+</script>

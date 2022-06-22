@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>test</title>
+</head>
+<body>
+<div>
+    <ul>
+        <li>
+            根结点
+        </li>
+
+    </ul>
+</div>
+</body>
+</html>
+<!--<script src="./js/example.min.js"></script>-->
+<script>
+  // console.log(test(1));
+  // show();
+  // 遍历树
+ /* const tree = [
+      {
+          id: 0,
+          name: 'root',
+          children: [
+              {
+                  id: 1,
+                  name: '父节点1',
+                  children: [
+                      {
+                          id: 2,
+                          name: '子节点1',
+                          children: [
+                              {
+                                  id: 3,
+                                  name: '孙子节点1',
+                              },
+                              {
+                                  id: 4,
+                                  name: '孙子节点2'
+                              }
+                          ]
+                      },
+                      {
+                          id: 5,
+                          name: '子节点2'
+                      }
+                  ]
+              },
+              {
+                  id: 6,
+                  name: '父节点2',
+                  children: [
+                      {
+                          id: 7,
+                          name: '子节点3'
+                      }
+                  ]
+              }
+          ]
+      }
+  ];*/
+  // 深度优先遍历 DFS, 利用栈的特性
+  /*function dfs(tree, callback) {
+      const stack = [...tree]
+      while(stack.length){
+          const node = stack.pop()
+          callback(node)
+          if(node.children){
+              stack.push(...node.children.reverse())
+          }
+      }
+  }
+  dfs(tree, node => {
+      console.log(node.name)
+  })*/
+  /*function dfs(tree){
+      tree.forEach((node, i) => {
+          node.x = i
+          if(node.children){
+              dfs(node.children)
+          }
+      })
+  }
+  dfs(tree)
+  console.log(tree)*/
+  // 广度优先遍历
+/*
+  function bfs(tree, callback){
+      const queue = [...tree]
+      let x = 0
+      while (queue.length){
+          const node = queue.shift()
+          node.x = x
+          callback(node)
+          if(node.children){
+              x++
+              queue.push(...node.children)
+          }
+      }
+  }*/
+  // bfs(tree, node => {
+  //     console.log(node)
+  // })
+  let arr = [
+      {id: 1, name: '部门1', pid: 0},
+      {id: 2, name: '部门2', pid: 1},
+      {id: 3, name: '部门3', pid: 1},
+      {id: 4, name: '部门4', pid: 3},
+      {id: 5, name: '部门5', pid: 4},
+  ]
+  // const result = [{"id":1,"name":"部门1","pid":0,"children":[{"id":2,"name":"部门2","pid":1,"children":[]},{"id":3,"name":"部门3","pid":1,"children":[{"id":4,"name":"部门4","pid":3,"children":[{"id":5,"name":"部门5","pid":4,"children":[]}]}]}]}]
+  const listToTree = arr => {
+      const result = []
+      const map = {}
+      for(let item of arr){
+          const temp = {...item, children: []}
+          map[item.id] = temp
+          if(item.pid === 0){
+              result.push(temp)
+          } else {
+              map[item.pid].children.push(temp)
+          }
+      }
+      return result
+  }
+
+  const treeToListDfs = (list, callback) => {
+      const stack = [...list]
+      while(stack.length){
+          const node = stack.pop()
+          callback(node)
+          if(node.children){
+              stack.push(...node.children.reverse())
+          }
+      }
+  }
+  const dfs2 = (tree, callback) => {
+      tree.forEach(node => {
+          callback(node)
+          if(node.children){
+              dfs2(node.children, callback)
+          }
+      })
+  }
+  // dfs2(result, node=> {
+  //     console.log(node.name)
+  // })
+  const bfs = (tree, callback) => {
+      const queue = [...tree]
+      while(queue.length){
+          const node = queue.shift()
+          callback(node)
+          if(node.children){
+              queue.push(...node.children)
+          }
+      }
+  }
+  // bfs(result, node=> {
+  //     console.log(node)
+  // })
+  const treeToList1 = (tree, result = []) => {
+      tree.forEach(node => {
+          result.push(node)
+          if(node.children){
+              treeToList1(node.children, result)
+          }
+      })
+      return result
+  }
+  // console.log(treeToList1(result))
+  const listToTree12 = list => {
+      const result = []
+      const map = {}
+      for(let value of list){
+          const temp = {...value, children: []}
+          map[value.id] = temp
+          if(value.pid === 0){
+              result.push(temp)
+          } else {
+              map[value.pid].children.push(temp)
+          }
+      }
+      return result
+  }
+  // console.log(listToTree12(arr))
+
+  const deepClone = (data, maps = new Map()) => {
+      const result = Array.isArray(data) ? [] : {}
+      if(maps.get(data)){
+          return data
+      }
+      maps.set(data, true)
+      for(let i in data){
+          if(data.hasOwnProperty(i)){
+              result[i] = typeof data[i] === 'object' ? deepClone(data[i]) : data[i]
+          }
+      }
+      return result
+  }
+
+  const shallowCopy = data => {
+      const result = Array.isArray(data) ? [] : {}
+      for(let i in data) {
+          if(data.hasOwnProperty(i)){
+              result[i] = data[i]
+          }
+      }
+      return result
+  }
+
+  const obj = {
+      color: ['red', 'green']
+  }
+  const copyObj = shallowCopy(obj)
+  obj.color.push('black')
+  console.log('obj', obj)
+  console.log('copyObj', copyObj)
+</script>

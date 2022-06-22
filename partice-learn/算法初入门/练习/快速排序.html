@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>快速排序</title>
+</head>
+<body>
+
+</body>
+</html>
+<script>
+  const arr = [2,1,5,3,4,6]
+  // 时间复杂度较高的
+  const quickSort1 = arr => {
+    if(arr.length<=1) return arr
+    const piv = arr.length - 1
+    let left = arr.filter((v, i) => v<arr[piv]&& i !==piv)
+    let right = arr.filter(v=> v> arr[piv])
+    return [...quickSort(left), arr[piv], ...quickSort(right)]
+  }
+  const swap = (arr, l, r) => {
+    [arr[l], arr[r]] = [arr[r], arr[l]]
+  }
+  const partition = (arr, left, right) => {
+    let j = left
+    for(let i = left;i<=right;i++){
+      if(arr[i]<= arr[right]){
+        swap(arr, i, j++)
+      }
+    }
+    return j - 1
+  }
+  const quickSort = (arr, start = 0, end = arr.length - 1) => {
+    if(end - start < 1) return arr
+    let piv = partition(arr, start, end)
+    quickSort(arr, start, piv -1)
+    quickSort(arr, piv + 1, end)
+    return arr
+  }
+  console.log(quickSort(arr))
+</script>

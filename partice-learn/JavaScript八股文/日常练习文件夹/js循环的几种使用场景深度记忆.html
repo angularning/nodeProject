@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+</html>
+<script>
+  const data = [
+    {
+      list: [
+        {
+          name: 1,
+          fruit: ['apple', 'orange', 'banana', 'watermelon']
+        },
+        {
+          name: 2,
+          fruit: [ 'orange', 'banana', 'watermelon']
+        },
+      ]
+    },
+    {
+      list: [
+        {
+          name: 3,
+          fruit: ['apple', 'orange', 'banana']
+        },
+        {
+          name: 4,
+          fruit: [ 'orange', 'watermelon']
+        },
+      ]
+    },
+  ]
+  // console.log((data))
+
+  const filterData = data => {
+    // for(let val of data){
+    //     for(let v of val.list){
+    //         if(!v.fruit.includes('apple')){
+    //             v.fruit.push('apple')
+    //         }
+    //     }
+    // }
+    return data.map(value => {
+        const list = value.list.map(val => {
+            if(!val.fruit.includes('apple')){
+                val.fruit.push('apple')
+            }
+            return val
+        })
+        return {list}
+    })
+  }
+  console.log('result', filterData(data))
+</script>

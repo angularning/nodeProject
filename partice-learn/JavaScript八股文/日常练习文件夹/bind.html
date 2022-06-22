@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+</html>
+<script>
+  Function.prototype._bind = function (context = window){
+    let fn = function (){}
+    let _this = this
+    let arg1 = Array.from(arguments).slice(1)
+    let result = function(){
+        let arg2 = [...arguments]
+        return _this.apply(this instanceof fn ? this : context, arg1.concat(arg2))
+    }
+    fn.prototype = this.prototype
+      result.prototype = new fn()
+    return result
+  }
+  Function.prototype._apply = function (context = window) {
+      let fn = Symbol()
+      let arg = Array.from(arguments).slice(1)
+      context[fn] = this
+      let result = context[fn](arg)
+      delete context[fn]
+      return result
+  }
+  Function.prototype._call = function (context = window) {
+      let fn = Symbol()
+      let arg = Array.from(arguments).slice(1)
+      context[fn] = this
+      let result = context[fn](...arg)
+      delete context[fn]
+      return result
+  }
+</script>

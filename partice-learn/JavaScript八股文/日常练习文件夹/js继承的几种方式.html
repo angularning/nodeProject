@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ji继承的理解</title>
+</head>
+<body>
+
+</body>
+</html>
+<script>
+  /*// 原型继承
+  function Person(name, age) {
+    this.name = name;
+    this.age = age;
+    this.fruit = ['apple', 'banana', 'orange'];
+  }
+  Person.prototype.sayName = function () {
+    console.log(this.name);
+  }
+  function Student(name, age, grade) {
+    this.name = name
+    this.age = age
+    this.grade = grade;
+  }
+  Student.prototype = new Person();
+  let s1 = new Student('张三', 18, '一年级');
+  s1.fruit.push('pear');
+  let s2 = new Student('李四', 19, '二年级');
+  console.log(s2.fruit);*/
+  // 构造函数继承
+  /*function Person(name){
+      this.name = name
+  }
+  Person.prototype.sayName = function(){
+      console.log(`我是：${this.name}`)
+  }
+  function Student(...arg){
+      Person.apply(this, arg)
+  }
+  Student.prototype.getName = function(){
+      console.log(`names：${this.name}`)
+  }
+  let s1 = new Student('李四')
+  s1.sayName()*/
+  // 组合继承
+  /*function Person(name){
+      this.name = name
+      this.colors = ['red', 'orange']
+  }
+  Person.prototype.sayName = function(){
+      console.log(`我是：${this.name}`)
+  }
+  function Student(){
+      Person.apply(this, arguments)
+  }
+  Student.prototype = new Person()
+  Student.prototype.constructor = Student
+  let s1 = new Student('李四')
+  s1.colors.push('blue')
+  let s2 = new Student('王五')
+  console.log(s2.__proto__)
+  s2.sayName()*/
+/*  function SuperType(name){
+      this.name = name;
+      this.colors = ["red", "blue", "green"];
+  }
+  SuperType.prototype.sayName = function(){
+      alert(this.name);
+  };
+
+  function SubType(name, age){
+      // 继承属性
+      // 第二次调用SuperType()
+      SuperType.call(this, name);
+
+  // 继承方法
+  // 构建原型链
+  // 第一次调用SuperType()
+  /*SubType.prototype = new SuperType();
+  // 重写SubType.prototype的constructor属性，指向自己的构造函数SubType
+  SubType.prototype.constructor = SubType;
+  SubType.prototype.sayAge = function(){
+      alert(this.age);
+  };
+
+  var instance1 = new SubType("Nicholas", 29);
+  instance1.colors.push("black");
+  alert(instance1.colors); //"red,blue,green,black"
+  instance1.sayName(); //"Nicholas";
+  instance1.sayAge(); //29
+
+  var instance2 = new SubType("Greg", 27);
+  alert(instance2.colors); //"red,blue,green"
+  instance2.sayName(); //"Greg";
+  instance2.sayAge(); //27*/
+
+  // 原型式继承
+  /*function object(o){
+      function F(){}
+      F.prototype = o;
+      return new F();
+  }
+  const Person = {
+      friends: ['a', 'b']
+  }
+  const p1 = object(Person)
+  p1.friends.push('c')
+  const p2 = object(Person)
+  console.log(p2.friends)*/
+  // 寄生式继承
+  /*function object(o){
+      function F(){}
+      F.prototype = o;
+      return new F();
+  }
+  const Person = {
+      friends: ['a', 'b']
+  }
+  function createStudent(o){
+      const p = object(o);
+      p.sayName = function(){
+          console.log(`我是：${this.name}`)
+      }
+      return p;
+  }
+  const s1 = createStudent(Person)
+  s1.friends.push('c')
+  const s2 = createStudent(Person)
+  console.log(s2.friends)*/
+  // 寄生组合式继承
+  /*function create(o){
+      function F(){}
+      F.prototype = o;
+      return new F();
+  }
+  function insertPrototype(subType, superType){
+      const p = create(superType.prototype)
+      p.constructor = subType
+      subType.prototype = p;
+  }
+  function Person(name){
+      this.name = name
+      this.friends = ['a', 'b']
+  }
+  function Student(){
+      Person.call(this, [...arguments])
+  }
+  insertPrototype(Student, Person)
+
+  const s1 = new Student('张三')
+  s1.friends.push('c')
+  const s2 = new Student('李四')
+  console.log(s2.friends)*/
+  // class继承
+  class Person {
+      constructor(name){
+          this.name = name
+      }
+      sayName(){
+          console.log(`我是：${this.name}`)
+      }
+  }
+  class Student extends Person{
+      constructor(name, age){
+          super(name)
+          this.age = age
+      }
+      sayAge(){
+          console.log(`我的年龄是：${this.age}`)
+      }
+  }
+  const s1 = new Student('张三', 18)
+</script>

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>桶排序</title>
+</head>
+<body>
+
+</body>
+</html>
+<script>
+  const arg = [2,5,3,1,4,6,7]
+  const swap = (arr, i, j) => {
+      [arr[i], arr[j]] = [arr[j], arr[i]]
+  }
+  const partition = (arr, start, end) => {
+      let j = start, piv = end;
+      for(let i = start;i<=end;i++){
+          if(arr[i] <= arr[piv]){
+              swap(arr, i, j++)
+          }
+      }
+      return j - 1
+  }
+  const quickSort = (arr, start = 0, end = arr.length - 1) => {
+      if(end - start < 1) return arr
+      let piv = partition(arr, start, end)
+      quickSort(arr, start, piv - 1)
+      quickSort(arr, piv + 1, end)
+      return arr
+  }
+  let randomArr = (len = 10)=> {
+    let temp = []
+    for(let i=0;i<len;i++){
+      temp.push(Number((Math.random() * len).toFixed(0)))
+    }
+    return temp
+  }
+  const calculatorTime = () => {
+    let st = Date.now()
+    console.log(randomArr(1000).sort())
+    let et = Date.now()
+    console.log((et - st) / 1000 + 's')
+  }
+  // calculatorTime()
+  // 数据要有一定的特点，比如：数据是在某个范围内，变化幅度不是很大。
+  // 1、先把桶分成几类
+  // 2、8 5 22 15 28 9 45 42 39 19 27 47 12    13个数据
+  // 3、max 45 min 5
+  // 4、5个桶
+  const buckets = (arg, size = 3) => {
+    let min = Math.min(...arg)
+    let max = Math.max(...arg)
+      let result = []
+    const count = Math.floor((max - min)/size) + 1
+      let buckets = []
+      for(let i = 0;i<count;i++){
+          buckets.push([])
+      }
+      for(let v of arg){
+          let num = Math.floor((v - min) /size)
+          buckets[num].push(v)
+      }
+      for(let bucket of buckets){
+          result.push(...quickSort(bucket))
+      }
+      return result
+  }
+  console.log(buckets(arg))
+</script>

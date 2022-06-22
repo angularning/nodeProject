@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<ul>
+
+    alert
+
+    弹出其编号
+
+    <li>编号1，点击我请弹出1</li>
+
+    <li>2</li> <li>3</li> <li>4</li> <li>5</li> </ul>
+<!--<div id="id1"></div>-->
+<!--<div id="id2"></div>-->
+</body>
+</html>
+<script>
+  // const id1 = document.getElementById('id1')
+  // const id2 = document.getElementById('id2')
+  // id1.innerHTML = typeof null
+  // id2.innerHTML = typeof [1,2,3]
+  // console.log(typeof Symbol(1))
+  // function foo(a){ a = a * 10; }
+  // var a = 1
+  // foo(a)
+  // console.log(a)
+
+  // function foo1(b){
+  //     b.value = 'new'
+  // }
+  // var b = {
+  //     value: 'old'
+  // }
+  // foo1(b)
+  // console.log(b)
+
+  /*var list = document.getElementsByTagName('li');
+  for (var i = 0; i < list.length; i++) {
+      list[i].addEventListener('click', function(){
+         return function (){
+             alert(i + 1)
+         }
+      }(i), true) }*/
+  function F1() {
+
+      var a = 100
+      console.log(a)
+      return function () {  }
+
+  }
+
+  var f1 = F1()
+
+  var a = 200
+
+  f1()
+</script>

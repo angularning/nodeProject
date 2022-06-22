@@ -1,0 +1,49 @@
+–<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+</html>
+<script>
+// 防抖 降低高频触发事件的执行频率，如果在规定时间内多次触发，重新计时。
+const debounce = (fn, wait, immediate) => {
+  let timer = null
+  return (...arg) => {
+    if(timer) clearTimeout(timer)
+    if(immediate && !timer){
+      timer = setTimeout(null, wait)
+      fn.apply(this, arg)
+    } else {
+      timer = setTimeout(() => {
+        fn.apply(this, arg)
+      }, wait)
+    }
+  }
+}
+
+// 节流 事件多次触发，超过规定时间不在执行。
+
+const throttle = (fn, wait, immediate) => {
+  let timer = null, start = 0
+  return (...arg) => {
+    if(immediate){
+      let now = new Date();
+      if(now - start > wait){
+        fn.apply(this, arg)
+        start = now
+      } else {
+        if(!timer){
+          timer = setTimeout(() => {
+            timer = null
+            fn.apply(this, arg)
+          }, wait)
+        }
+      }
+    }
+  }
+}
+</script>

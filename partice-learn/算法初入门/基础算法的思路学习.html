@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<pre>
+    1.冒泡排序的理解
+      时间复杂度 O(n^2),空间复杂度O(1)
+    --交换左右的两个元素，大的放右边
+    2.选择排序的思路
+      时间复杂度 O(n^2),空间复杂度O(1)
+    --找到最大的放到最后边
+    3.插入排序
+      时间复杂度 O(n^2),空间复杂度O(1)
+    --从第二个元素开始用当前元素和之前的元素对比，如果小的话交换位置。
+    4.希尔排序
+      时间复杂度 O(n^2),空间复杂度O(1)
+    --是一种优化的插入排序，选择一个间隔
+    5.归并排序
+      时间复杂度 O(n*log n),空间复杂度 O(n)
+    --算法如其名，分成左右两个有序数列，在进行合并
+    6.快速排序
+      时间复杂度 O(n*log n),空间复杂度 O(n*log n)
+    --已最后一个元素作为pivot，找到比他小的，比他大大。
+    7.记数排序
+      时间复杂度 O(n+k) 空间复杂度 O(n+k) k比较大的情况下不太好，如果值量大但是范围小可以用记数排序
+    --记录每个值出现的次数
+
+</pre>
+<pre>
+     let arr = [2, 1, 6, 0];
+    /**
+     *  @param len 生成数组的长度
+     */
+    let randomArr = (len = 10)=> {
+        let temp = []
+        for(let i=0;i<len;i++){
+            temp.push(Number((Math.random() * len).toFixed(0)))
+        }
+        return temp
+    }
+    const computedSortTimer = (fn) => {
+        let st = new Date().getTime()
+        // console.log(chooseSort(randomArr(10000)))
+        // console.log(bubbleSort(arr))
+        let et = new Date().getTime()
+        console.log(et - st)
+    }
+    // 冒泡排序
+   /* const bubbleSort = (arr) => {
+        let len = arr.length - 1
+        for(let i = 0;i<len;i++){
+            findMax(arr, len)
+        }
+        return arr
+    }
+    const findMax = (arr, len) => {
+        for(let i = 0;i<len;i++){
+            if(arr[i] > arr[i+1]){
+                swap(arr,i, i+1)
+            }
+        }
+    }
+    const swap = (data,i,j)=> {
+        [data[i], data[j]] = [data[j], data[i]]
+    }*/
+    // 选择排序
+    /*const chooseSort = (arr) => {
+        for(let i = 0;i<arr.length;i++){
+            for(let j = i+1;j<arr.length;j++){
+                if(arr[i]>arr[j]){
+                    [arr[i],arr[j]] = [arr[j], arr[i]]
+                }
+            }
+        }
+        return arr
+    }*/
+    // console.log(chooseSort(arr))
+    // 插入排序
+    /* const crSort = arr => {
+        for(let i = 1;i<arr.length;i++){
+            for(let j = i;j>0;j--){
+                if(arr[j]<arr[j-1]){
+                     swap(arr,j, j-1)
+                }
+            }
+        }
+        return arr
+    }
+     const swap = (data,i,j)=> {
+        [data[i], data[j]] = [data[j], data[i]]
+        return data
+     }
+    // console.log(crSort(arr))*/
+    // 希尔排序
+    /*const shellSort = arr => {
+        for(let gap = arr.length>>1;gap>0;gap /=2){
+            for (let i = gap;i<arr.length;i++){
+                for(let j = i ;j>gap-1;j--){
+                    if(arr[j]<arr[j-gap]){
+                        swap(arr, j, j-gap)
+                    }
+                }
+            }
+        }
+        return arr
+    }
+    const swap = (data, i, j) => {
+        [data[i], data[j]] = [data[j], data[i]]
+        return data
+    }
+    // console.log(shellSort(arr))*/
+    // 归并排序
+    /*const mergeSort = arr => {
+        if(arr.length < 2) return arr
+        let mid = arr.length >> 1
+        let left = mergeSort(arr.slice(0, mid))
+        let right = mergeSort(arr.slice(mid))
+        return merge(left, right)
+    }
+    const merge = (left,right) => {
+        let i = 0,j = 0,result = [];
+        while (i<left.length && j<right.length){
+            left[i]<=right[j] ? result.push(left[i++]) : result.push(right[j++])
+        }
+        if(i<left.length){
+            result.push(...left.slice(i))
+        }
+        if(j<right.length){
+            result.push(...right.slice(j))
+        }
+        return result
+    }
+    // console.log(mergeSort(randomArr(100)))*/
+    // 快速排序
+    /*const quickSort = arr => {
+        return sort(arr, 0, arr.length -1)
+    }
+    const sort = (arr, left, right) => {
+        if(left>=right) return
+        let mid = partition(arr, left, right)
+        sort(arr ,left, mid -1)
+        sort(arr, mid + 1, right)
+        return arr
+    }
+    const swap = (arr, i,j) => {
+        [arr[i],arr[j]] = [arr[j],arr[i]]
+    }
+    const partition = (arr, l, r) => {
+        let piv = r
+        let left = l;
+        let right = r - 1;
+        while (left<=right){
+            while (left<=right&&arr[left]<=arr[piv]) {left++}
+            while (left<=right&&arr[right]>arr[piv]){ right--}
+            if(left<right){
+                swap(arr, left, right)
+            }
+        }
+        swap(arr, left, r)
+        return left
+    }
+    console.log(quickSort(randomArr(10)))*/
+    // 快速排序1
+    /*const quickSort1 = arr => {
+        if(arr.length<2) return arr
+        let piv = arr.length - 1
+        let left = arr.filter((v, i)=> v <= arr[piv] && i !== piv)
+        let right =  arr.filter(v=> v > arr[piv])
+        return [...quickSort1(left), arr[piv], ...quickSort1(right)]
+    }
+    console.log(quickSort1(randomArr(10)))*/
+</pre>
+</body>
+</html>
+<script>
+    let arr = [2, 1, 6, 0,1,2];
+    /**
+     *  @param len 生成数组的长度
+     */
+    let randomArr = (len = 10)=> {
+        let temp = []
+        for(let i=0;i<len;i++){
+            temp.push(Number((Math.random() * len).toFixed(0)))
+        }
+        return temp
+    }
+    const computedSortTimer = (fn) => {
+        let st = new Date().getTime()
+        // console.log(chooseSort(randomArr(10000)))
+        // console.log(bubbleSort(arr))
+        let et = new Date().getTime()
+        console.log(et - st)
+    }
+    const swap = (arr, i, j) => {
+        [arr[i], arr[j]] = [arr[j], arr[i]]
+    }
+    const partition = (arr, start, end) => {
+        let j = start, piv = end;
+        for(let i = start;i<=end;i++){
+            if(arr[i] <= arr[piv]){
+                swap(arr, i, j++)
+            }
+        }
+        return j - 1
+    }
+    const quickSort = (arr, start = 0, end = arr.length - 1) => {
+        console.log('start', start)
+        console.log('end', end)
+        if(end - start < 1) return arr
+        let piv = partition(arr, start, end)
+        console.log('piv', piv)
+        quickSort(arr, start, piv - 1)
+        quickSort(arr, piv + 1, end)
+        return arr
+    }
+    console.log(quickSort(arr, 0, arr.length - 1))
+    /*const swap = (arr, i, j) => {
+        [arr[i], arr[j]] = [arr[j], arr[i]]
+    }
+    const chooseSort = arr => {
+        for(let i = 0;i<arr.length;i++){
+            let min = i
+            for(let j=i;j<arr.length;j++){
+                if(arr[j] < arr[min]){
+                    min = j
+                }
+            }
+            if(min !== i){
+                swap(arr, i, min)
+            }
+        }
+        return arr
+    }*/
+    /*const bubbleSort = arr => {
+        for(let i=0;i<arr.length;i++){
+            for(let j = i + 1;j<arr.length;j++){
+                if(arr[j]<arr[i]) swap(arr, i, j)
+            }
+        }
+        return arr
+    }*/
+   /* const insertSort = arr => {
+        for(let i = 0;i<arr.length;i++){
+            let j = i
+            let target = arr[j]
+            while(j>0 && arr[j-1] > target){
+                arr[j] = arr[j-1]
+                j--
+            }
+            arr[j] = target
+        }
+        return arr
+    }
+    console.log(insertSort(arr))*/
+   /* const sort = (left, right) => {
+        let i = 0, j = 0, result =[]
+        while (i<left.length &&j<right.length){
+            if(left[i]<right[j]){
+                result.push(left[i++])
+            } else {
+                result.push(right[j++])
+            }
+        }
+        if(i<left.length){
+            result.push(...left.slice(i))
+        }
+        if(j<right.length){
+            result.push(...right.slice(j))
+        }
+        return result
+    }
+    const mergeSort = (arr) => {
+        if(arr.length<2) return arr
+        let mid = arr.length >> 1
+        let left = mergeSort(arr.slice(0, mid))
+        let right = mergeSort(arr.slice(mid))
+        return sort(left, right)
+    }
+    console.log(mergeSort(randomArr(20)))
+*/
+
+   /* const swap = (arr, i, j) => {
+        [arr[i], arr[j]] = [arr[j], arr[i]]
+    }
+    const shellSort = arr => {
+        for(let gap = arr.length >> 1;gap>0;gap = Math.floor(gap/2)){
+            for(let i = gap;i<arr.length;i++){
+                for(let j = i;j>gap - 1;j-=gap){
+                    if(arr[j]< arr[j - gap]){
+                        swap(arr, j, j - gap)
+                    }
+                }
+            }
+        }
+        return arr
+    }
+    console.log(shellSort(testArr1))*/
+    // 选择排序
+    /* const chooseSort = (arr) => {
+        let len = arr.length - 1
+        for(let i = 0;i<len;i++){
+            findMax(arr, len)
+        }
+        return arr
+    }
+    const findMax = (arr, len) => {
+        for(let i = 0;i<len;i++){
+            if(arr[i] > arr[i+1]){
+                swap(arr,i, i+1)
+            }
+        }
+    }
+    const swap = (data,i,j)=> {
+        [data[i], data[j]] = [data[j], data[i]]
+    }*/
+    // 冒泡排序
+    /*const bubbleSort = (arr) => {
+        for(let i = 0;i<arr.length;i++){
+            for(let j = i+1;j<arr.length;j++){
+                if(arr[i]>arr[j]){
+                    [arr[i],arr[j]] = [arr[j], arr[i]]
+                }
+            }
+        }
+        return arr
+    }
+    // console.log(chooseSort(arr))
+    */
+    // 插入排序
+    /* const insertSort = arr => {
+        for(let i = 1;i<arr.length;i++){
+            for(let j = i;j>0;j--){
+                if(arr[j]<arr[j-1]){
+                     swap(arr,j, j-1)
+                }
+            }
+        }
+        return arr
+    }
+     const swap = (data,i,j)=> {
+        [data[i], data[j]] = [data[j], data[i]]
+        return data
+     }
+    // console.log(insertSort(arr))*/
+    // 希尔排序
+    /*const shellSort = arr => {
+        for(let gap = arr.length>>1;gap>0;gap /=2){
+            for (let i = gap;i<arr.length;i++){
+                for(let j = i ;j>gap-1;j--){
+                    if(arr[j]<arr[j-gap]){
+                        swap(arr, j, j-gap)
+                    }
+                }
+            }
+        }
+        return arr
+    }
+    const swap = (data, i, j) => {
+        [data[i], data[j]] = [data[j], data[i]]
+        return data
+    }
+    // console.log(shellSort(arr))*/
+    // 归并排序
+    /*const mergeSort = arr => {
+        if(arr.length < 2) return arr
+        let mid = arr.length >> 1
+        let left = mergeSort(arr.slice(0, mid))
+        let right = mergeSort(arr.slice(mid))
+        return merge(left, right)
+    }
+    const merge = (left,right) => {
+        let i = 0,j = 0,result = [];
+        while (i<left.length && j<right.length){
+            left[i]<=right[j] ? result.push(left[i++]) : result.push(right[j++])
+        }
+        if(i<left.length){
+            result.push(...left.slice(i))
+        }
+        if(j<right.length){
+            result.push(...right.slice(j))
+        }
+        return result
+    }
+    // console.log(mergeSort(randomArr(100)))*/
+    // 快速排序
+    /*const quickSort = arr => {
+        return sort(arr, 0, arr.length -1)
+    }
+    const sort = (arr, left, right) => {
+        if(left>=right) return
+        let mid = partition(arr, left, right)
+        sort(arr ,left, mid -1)
+        sort(arr, mid + 1, right)
+        return arr
+    }
+    const swap = (arr, i,j) => {
+        [arr[i],arr[j]] = [arr[j],arr[i]]
+    }
+    const partition = (arr, l, r) => {
+        let piv = r
+        let left = l;
+        let right = r - 1;
+        while (left<=right){
+            while (left<=right&&arr[left]<=arr[piv]) {left++}
+            while (left<=right&&arr[right]>arr[piv]){ right--}
+            if(left<right){
+                swap(arr, left, right)
+            }
+        }
+        swap(arr, left, r)
+        return left
+    }
+    console.log(quickSort(randomArr(10)))*/
+    // 快速排序1
+    /*const quickSort1 = arr => {
+        if(
+        let piv = arr.length - 1
+        let left = arr.filter((v, i)=> v <= arr[piv] && i !== piv)
+        let right =  arr.filter(v=> v > arr[piv])
+        return [...quickSort1(left), arr[piv], ...quickSort1(right)]
+    }
+    console.log(quickSort1(randomArr(10)))*/
+
+    /**
+     * 计数排序用到的数组
+     * */
+   /* const countArr = [ 5, 0, 0, 0, 2, 2, -1]
+    // 计数排序
+    const countSort = arr => {
+        const min = Math.min(...arr)
+        let counts = []
+        let result = []
+        for(let val of arr){
+            counts[val - min] = (counts[val -min] || 0) + 1
+        }
+        for(let i=0;i<counts.length;i++){
+            let val = counts[i]
+            while (val&&val>0){
+                result.push(i + min)
+                val--
+            }
+        }
+        // console.log(counts)
+        // console.log(result)
+    }
+    countSort(countArr)*/
+</script>
+

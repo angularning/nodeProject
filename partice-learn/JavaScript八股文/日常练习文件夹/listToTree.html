@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div>
+    <ul id="ul">
+        <li id="a">a</li>
+        <li id="b">b</li>
+        <li id="c">c</li>
+    </ul>
+</div>
+</body>
+</html>
+<script>
+  // list to tree
+  const list = [
+    {
+      id: 1,
+      name: '父节点1',
+      children: [
+        {
+          id: 2,
+          name: '子节点1',
+          children: [
+            {
+              id: 3,
+              name: '孙子节点1'
+            },
+            {
+              id: 4,
+              name: '孙子节点2'
+            }
+          ]
+        },
+        {
+          id: 5,
+          name: '子节点2'
+        }
+      ]
+    },
+    {
+      id: 6,
+      name: '父节点2',
+      children: [
+        {
+          id: 7,
+          name: '子节点3'
+        },
+        {
+          id: 8,
+          name: '子节点4'
+        }
+      ]
+    }
+
+  ];
+  const tree = {
+
+  };
+  // console.log(list);
+  function Person(name, age){
+    this.name = name;
+    this.age = age;
+    this.country = '中国';
+  }
+  Person.prototype.say = function(){
+    console.log(this.name + '说：我今年' + this.age + '岁了',',我来自' + this.country);
+  }
+  let p1 = new Person('张三', 20);
+  let p2 = new Person('李四', 30);
+  // p2.say();
+ // console.log(p2);
+ // console.log(Person === Person.prototype.constructor);
+
+  // console.log(Object.prototype.toString.call(Symbol(11)).slice(8, -1));
+
+  /*
+  *
+  * */
+  let isFlag = true;
+  const ul = document.getElementById('ul');
+  ul.addEventListener('mousemove', (e) => {
+    e.target.style.backgroundColor = 'red';
+    setTimeout (() => {
+      e.target.style.backgroundColor = '';
+    }, 1000);
+  },{once: false, capture: true});
+</script>

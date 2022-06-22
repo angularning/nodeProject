@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>grid</title>
+    <style>
+        @media (width < 320px) {
+         .container{
+            background: rgb(182, 16, 16);
+         }
+        }
+        @media (320px <= width < 600px) {
+         .container{
+            background: rgb(53, 80, 191);
+         }
+        }
+        @media sc (600px <= width <= 1000px) {
+         .container{
+            font-size: 20;
+            background: rgb(38, 182, 50);
+         }
+        }
+        .container{
+            display: grid;
+        }
+        .container div{
+            grid-row: 1;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div>1</div>
+        <div>2</div>
+        <div>3</div>
+        <div>4</div>
+        <div>5</div>
+        <div>6</div>
+    </div>
+</body>
+</html>

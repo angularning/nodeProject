@@ -1,0 +1,41 @@
+*{margin: 0;padding: 0;}
+body{
+    background: #f0f0f0;
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-size: 14px;
+    line-height: 1.42857143;
+    color: #333;
+}
+.wrap{
+  width: 300px;
+}
+.inputDiv{
+  margin: 20px;
+}
+.inputDiv p{
+  margin: 10px 0;
+}
+.inputDiv input{
+  width: 100%;
+  height: 30px;
+  border: none;
+  outline: none;
+  font-size: 10px;
+  padding: 0 10px;
+}
+.inputButton{
+  margin: 0 0 0 20px;
+}
+.inputButton button{
+  width: 100%;
+  height: 30px;
+  border: none;
+  outline: none;
+  font-size: 14px;
+  background: #00bcd4;
+  color: #fff;
+  cursor: pointer;
+}
+.inputButton button:hover{
+  background: #00a3b4;
+}
